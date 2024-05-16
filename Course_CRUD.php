@@ -99,6 +99,10 @@
                 width: 100%;
             }
         }
+        .courses-container{
+            display:flex;
+            flex-direction: row;
+        }
     </style>
 </head>
 <body>
