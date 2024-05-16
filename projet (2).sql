@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2024 at 01:59 PM
+-- Generation Time: May 16, 2024 at 03:59 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,6 +46,17 @@ CREATE TABLE `cours` (
   `Id_Enseignant` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `cours`
+--
+
+INSERT INTO `cours` (`Id_Cours`, `Titre_cours`, `Id_Enseignant`) VALUES
+(1, 'JavaScript', 5),
+(2, 'C', 6),
+(3, 'Java', 1),
+(4, 'Python', 3),
+(5, 'SQL', 4);
+
 -- --------------------------------------------------------
 
 --
@@ -56,7 +67,6 @@ CREATE TABLE `enseignant` (
   `Id_Enseignant` int(11) NOT NULL,
   `Nom` varchar(255) DEFAULT NULL,
   `Prenom` varchar(255) DEFAULT NULL,
-  `Domaine` varchar(255) DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
   `Mot_de_Passe` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -65,12 +75,12 @@ CREATE TABLE `enseignant` (
 -- Dumping data for table `enseignant`
 --
 
-INSERT INTO `enseignant` (`Id_Enseignant`, `Nom`, `Prenom`, `Domaine`, `Email`, `Mot_de_Passe`) VALUES
-(1, 'El Bouzidi', 'Abdelilah', 'Java', 'abdelilahelbouzidi@enseignant', 'P@ssw0rd1'),
-(3, 'Zerouali', 'Fatima', 'Python', 'fatimazerouali@enseignant', 'P@ssw0rd2'),
-(4, 'Laaribi', 'Mohammed', 'SQL', 'mohammedlaaribi@exam', 'P@ssw0rd3'),
-(5, 'Essalhi', 'Nadia', 'JavaScript', 'nadiaessalhi@example', 'P@ssw0rd4'),
-(6, 'El Mansour', 'Rachid', 'C++', 'rachidelmansouri@exa', 'P@ssw0rd5');
+INSERT INTO `enseignant` (`Id_Enseignant`, `Nom`, `Prenom`, `Email`, `Mot_de_Passe`) VALUES
+(1, 'El Bouzidi', 'Abdelilah', 'abdelilahelbouzidi@enseignant', 'P@ssw0rd1'),
+(3, 'Zerouali', 'Fatima', 'fatimazerouali@enseignant', 'P@ssw0rd2'),
+(4, 'Laaribi', 'Mohammed', 'mohammedlaaribi@exam', 'P@ssw0rd3'),
+(5, 'Essalhi', 'Nadia', 'nadiaessalhi@example', 'P@ssw0rd4'),
+(6, 'El Mansour', 'Rachid', 'rachidelmansouri@exa', 'P@ssw0rd5');
 
 -- --------------------------------------------------------
 
@@ -133,8 +143,45 @@ CREATE TABLE `exercice` (
 CREATE TABLE `lesson` (
   `Id_lesson` int(11) NOT NULL,
   `Titre_lesson` varchar(255) DEFAULT NULL,
-  `file_lesson` longtext NOT NULL
+  `file_lesson` longtext NOT NULL,
+  `Id_Cours` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `lesson`
+--
+
+INSERT INTO `lesson` (`Id_lesson`, `Titre_lesson`, `file_lesson`, `Id_Cours`) VALUES
+(1, 'JavaScript Variables', 'javascript_variables.txt', 1),
+(2, 'JavaScript Functions', 'javascript_functions.txt', 1),
+(3, 'JavaScript Loops', 'javascript_loops.txt', 1),
+(4, 'JavaScript Events', 'javascript_events.txt', 1),
+(5, 'JavaScript Arrays', 'javascript_arrays.txt', 1),
+(6, 'JavaScript Objects', 'javascript_objects.txt', 1),
+(7, 'C Introduction', 'c_introduction.txt', 2),
+(8, 'C Data Types', 'c_data_types.txt', 2),
+(9, 'C Control Structures', 'c_control_structures.txt', 2),
+(10, 'C Functions', 'c_functions.txt', 2),
+(11, 'C Pointers', 'c_pointers.txt', 2),
+(12, 'C Arrays', 'c_arrays.txt', 2),
+(13, 'Java Introduction', 'java_introduction.txt', 3),
+(14, 'Java Data Types', 'java_data_types.txt', 3),
+(15, 'Java Control Structures', 'java_control_structures.txt', 3),
+(16, 'Java OOP Concepts', 'java_oop_concepts.txt', 3),
+(17, 'Java Collections', 'java_collections.txt', 3),
+(18, 'Java Exceptions', 'java_exceptions.txt', 3),
+(19, 'Python Introduction', 'python_introduction.txt', 4),
+(20, 'Python Data Types', 'python_data_types.txt', 4),
+(21, 'Python Control Structures', 'python_control_structures.txt', 4),
+(22, 'Python Functions', 'python_functions.txt', 4),
+(23, 'Python Modules', 'python_modules.txt', 4),
+(24, 'Python Exceptions', 'python_exceptions.txt', 4),
+(25, 'SQL Introduction', 'sql_introduction.txt', 5),
+(26, 'SQL Data Types', 'sql_data_types.txt', 5),
+(27, 'SQL Joins', 'sql_joins.txt', 5),
+(28, 'SQL Aggregation', 'sql_aggregation.txt', 5),
+(29, 'SQL Subqueries', 'sql_subqueries.txt', 5),
+(30, 'SQL Indexing', 'sql_indexing.txt', 5);
 
 -- --------------------------------------------------------
 
@@ -204,7 +251,8 @@ ALTER TABLE `exercice`
 -- Indexes for table `lesson`
 --
 ALTER TABLE `lesson`
-  ADD PRIMARY KEY (`Id_lesson`);
+  ADD PRIMARY KEY (`Id_lesson`),
+  ADD KEY `fk_cours` (`Id_Cours`);
 
 --
 -- Indexes for table `note`
@@ -235,7 +283,7 @@ ALTER TABLE `commentaire`
 -- AUTO_INCREMENT for table `cours`
 --
 ALTER TABLE `cours`
-  MODIFY `Id_Cours` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Cours` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `enseignant`
@@ -259,7 +307,7 @@ ALTER TABLE `exercice`
 -- AUTO_INCREMENT for table `lesson`
 --
 ALTER TABLE `lesson`
-  MODIFY `Id_lesson` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_lesson` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `note`
@@ -295,6 +343,12 @@ ALTER TABLE `cours`
 --
 ALTER TABLE `exercice`
   ADD CONSTRAINT `fk_lesson_exercice` FOREIGN KEY (`Id_lesson`) REFERENCES `lesson` (`Id_lesson`);
+
+--
+-- Constraints for table `lesson`
+--
+ALTER TABLE `lesson`
+  ADD CONSTRAINT `fk_cours` FOREIGN KEY (`Id_Cours`) REFERENCES `cours` (`Id_Cours`);
 
 --
 -- Constraints for table `note`

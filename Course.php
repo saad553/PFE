@@ -88,7 +88,7 @@
   <div class="container">
     <nav class="site-nav" style="background-color: #1c394d;">
       <div class="logo">
-        <a href="index.html"><img class="khdmi" src="Untitled design.png" alt="image-alterna"></a>
+        <a href="index.html"><img class="khdmi" src="logo.png" alt="image-alterna"></a>
       </div>
       <div class="row align-items-center">
         <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">

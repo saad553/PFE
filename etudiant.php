@@ -151,7 +151,7 @@
 
     <nav class="site-nav">
       <div class="logo">
-        <a href="index.html"><img class="khdmi" src="Untitled design.png" alt="image-alterna"></a>
+        <a href="index.html"><img class="khdmi" src="logo.png" alt="image-alterna"></a>
       </div>
       <div class="row align-items-center">
         

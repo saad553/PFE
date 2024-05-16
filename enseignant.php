@@ -222,7 +222,7 @@
 <div class="container">
     <nav class="site-nav">
         <div class="logo">
-            <a href="index.html"><img class="khdmi" src="Untitled design.png" alt="image-alterna"></a>
+            <a href="index.html"><img class="khdmi" src="logo.png" alt="image-alterna"></a>
         </div>
         <div class="row align-items-center">
             <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
@@ -258,17 +258,18 @@
     </div>
 </div>
 <div class="TextCourses">
-    <h1>Explorer vos Cours</h1>
+    <h1 id="courses-section" >Explorer vos Cours</h1>
     <div class="CoursesContainer">
         <div class="course-card">
             <div class="course-image">
                 <img src="images/js.png" alt="Javascript Course">
             </div>
-            <div class="course-details">
+            <a href="Course.php">
+            <div  class="course-details">
                 <h3 class="course-title">Javascript</h3>
                 <p class="course-instructor">Mr Moussi Mohammed</p>
                 <p class="course-parts">Parties: 10</p>
-            </div>
+            </div></a>
         </div>
 
         <div class="course-card">
@@ -297,7 +298,7 @@
 <br>
 <br>
 <div class="statistics-section">
-    <h2>Statistiques</h2>
+    <h2 id="enseignant-section">Statistiques</h2>
     <div class="bar-chart">
         <div class="bar" style="height: 60%;">60%</div>
         <div class="bar" style="height: 52%;">52%</div>
