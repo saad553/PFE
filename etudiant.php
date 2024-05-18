@@ -1,3 +1,14 @@
+<?php
+include("db_connect.php");
+if (!isset($_SESSION['user_name'])) {
+    // Redirect to login page if the session is not set
+    header("Location: login.php");
+    exit;
+}
+
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -158,9 +169,9 @@
         
         <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
           <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
-            <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="index.html">Messages</a></li>
-            <li><a href="index.html">About</a></li>
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="">Messages</a></li>
+            <li><a href="logout.php">Logout</a></li>
           </ul>
         </div>
             
@@ -184,7 +195,7 @@
 
             <div class="row justify-content-around">
               <div class="col-lg-8">
-              <p class="mb-5"  data-aos="fade-up" data-aos-delay="100">Here, you'll find the courses you're enrolled in, along with your latest progress updates and other important information regarding your academic journey.</p>
+            <?php  echo '<p class="mb-5"  data-aos="fade-up" data-aos-delay="100">Voici '.$_SESSION['user_name'].', les cours auxquels vous êtes inscrit(e), ainsi que vos dernières mises à jour de progression et d\'autres informations importantes concernant votre parcours académique.</p>'?>
               </div>
             </div>
             <div data-aos="fade-up" data-aos-delay="100">

@@ -36,18 +36,18 @@ include("db_connect.php");
 
     <nav class="site-nav">
       <div class="logo">
-        <a href="index.html"><img class="khdmi" src="logo.png" alt="image-alterna"></a>
+        <a href="index.php"><img class="khdmi" src="logo.png" alt="image-alterna"></a>
       </div>
       <div class="row align-items-center">
         
         
         <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
           <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
-            <li class="active"><a href="index.html">Home</a></li>
+            <li class="active"><a href="#">Home</a></li>
             
-            <li><a href="portfolio.html">Etudiant</a></li>
-            <li><a href="index.html">Enseignant</a></li>
-            <li><a href="index.html">About</a></li>
+            <li><a href="#outer-container">Etudiant</a></li>
+            <li><a href="#outer-container" >Enseignant</a></li>
+            <li><a href="#site-footer">About</a></li>
           </ul>
 
         </div>
@@ -107,7 +107,7 @@ include("db_connect.php");
           </div>
        </div>
         <div class="form-group">
-          <input type="hidden" name="user_id" value="teacher">
+          <input type="hidden" name="user_id" value="enseignant">
           <label for="email">Email:</label>
           <input type="email" placeholder="email" class="form-control" id="email" name="email" required>
         </div>
@@ -126,7 +126,7 @@ include("db_connect.php");
           </div>
        </div>
         <div class="form-group">
-          <input type="hidden" name="user_id" value="student">
+          <input type="hidden" name="user_id" value="etudiant">
           <label for="email">Email:</label>
           <input type="email" placeholder="email"  class="form-control" id="email" name="email" required>
         </div>
@@ -142,7 +142,7 @@ include("db_connect.php");
   
 </div>
 
-<div class="site-footer">
+<div class="site-footer" id="site-footer">
   <div class="container">
     <div class="row justify-content-between">
       <div class="col-lg-4">

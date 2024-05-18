@@ -1,3 +1,14 @@
+<?php
+include("db_connect.php");
+if (!isset($_SESSION['user_name'])) {
+    // Redirect to login page if the session is not set
+    header("Location: login.php");
+    exit;
+}
+
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -222,14 +233,16 @@
 <div class="container">
     <nav class="site-nav">
         <div class="logo">
-            <a href="index.html"><img class="khdmi" src="logo.png" alt="image-alterna"></a>
+            <a href="#"><img class="khdmi" src="logo.png" alt="image-alterna"></a>
         </div>
         <div class="row align-items-center">
             <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
                 <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
-                    <li class="active"><a href="index.html">Home</a></li>
-                    <li><a href="index.html">Messages</a></li>
-                    <li><a href="index.html">About</a></li>
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="">Messages</a>
+                    <a  href="logout.php">Logout</a>
+                </li>
+                    
                 </ul>
             </div>
         </div>
@@ -244,10 +257,13 @@
                 <h1 data-aos="fade-up" class="mb-4">Enseignant Dashboard</h1>
                 <div class="row justify-content-around">
                     <div class="col-lg-8">
-                        <p class="mb-5"  data-aos="fade-up" data-aos-delay="100">Bonjour Mr Ait Moussa Abdelaziz.<br><br><br>
+                        <?php echo' <p class="mb-5"  data-aos="fade-up" data-aos-delay="100">Bonjour  '.$_SESSION['user_name'].'<br><br><br>
                             Vous pouvez partager vos nouveaux cours, partager des nouveaux exercices et voir le rendement de vos cours.
-                        </p>
-                    </div>
+                        </p>';
+                        ?>
+                       
+                    </div> 
+                
                 </div>
                 <div data-aos="fade-up" data-aos-delay="100">
                     <a href="#courses-section" class="btn btn-primary mr-2 mb-2">Explorer vos cours</a>
