@@ -1,8 +1,6 @@
 import openai
 import mysql.connector
 
-openai.api_key = 'sk-proj-f3yaXtGqXp6ND9msFs43T3BlbkFJc39amcj3lKyHNcOGsuMW'
-
 def generate_exercise(lesson_title):
     prompt = f"Generate 2 multiple-choice exercises for the lesson titled '{lesson_title}'. Each exercise should have 6 questions, and each question should have 4 options."
     response = openai.Completion.create(
