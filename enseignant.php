@@ -2,11 +2,10 @@
 include("db_connect.php");
 if (!isset($_SESSION['user_name'])) {
     // Redirect to login page if the session is not set
-    header("Location: login.php");
+    header("Location: index.php");
     exit;
 }
 ?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -153,33 +152,37 @@ if (!isset($_SESSION['user_name'])) {
         }
         .TextCourses{
             display: flex;
-            font-family: "Montserrat", sans-serif;
             flex-direction: column;
-            text-align: center;
+            text-align: start;
             margin: 5%;
         }
         .CoursesContainer {
+            width: 100%; /* Set a width */
             display: flex;
             flex-direction: row;
-            justify-content: center;
+            justify-content: center; /* Adjust as needed */
             align-items: center;
             margin-top: 50px;
-            gap: 50px;
-        }
+}
 
         .course-card:hover {
-            transform: scale(1.1); /* Scale the div on hover */
+            transition-timing-function: ease-in-out;
+            transform: scale(1.01);
+            transition-duration: 0.2s;
         }
 
         .course-card {
             width: 250px;
             border: 1px solid #ccc;
-            border-radius: 18px;
+            border-radius: 3%;
             overflow: hidden;
             margin: 10px;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-                }
+            transition-timing-function: ease-in-out;
+            transition-duration: 0.2s;
+            margin: 2%;
+        
+        }
+
 
         .course-image img {
             width: 100%;
@@ -188,26 +191,63 @@ if (!isset($_SESSION['user_name'])) {
         }
 
         .course-details {
-            padding: 10px;
-            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: row;
+        }
+        .course-details-left-container{
+            flex: 7.5;
+            display: flex;
+            flex-direction: column;
+            margin: 5%;
+            margin-right: 0%;
+
+
+        }
+        .course-details-right-container{
+            flex: 2.5;
+            justify-items: center;
+            text-align: center;
+            margin-top:5%;
+            margin-bottom:5%;
+            align-content: center;
+
+        }
+
+        .img_next{
+            width: 30px;
+            height: 30px;
+            align-self: center;
+
+            margin: 5%;
+            transition-timing-function: ease-in-out;
+            transition-duration: 0.2s;
+
+        }
+        .img_next:hover{
+            transition-timing-function: ease-in-out;
+            transform: scale(1.1);
+            transition-duration: 0.2s;
         }
 
         .course-title {
             margin-bottom: 5px;
-            font-size: small;
             color: #333;
+            font-size: large;
+            font-weight: medium;
         }
-
-        .course-instructor {
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: green;
-        }
-
         .course-parts {
             margin-bottom: 0;
-            color: blue;
+            color: #4d7d22;
+            font-size:80%;
+            font-weight:bold ;
         }
+        .course-instructor {
+            margin: 1%;
+            font-weight:200;
+            color:#6D6D6D;
+            font-size: small;
+        }
+
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -231,16 +271,14 @@ if (!isset($_SESSION['user_name'])) {
 <div class="container">
     <nav class="site-nav">
         <div class="logo">
-            <a href="#"><img class="khdmi" src="logo.png" alt="image-alterna"></a>
+            <a href="index.html"><img class="khdmi" src="Untitled design.png" alt="image-alterna"></a>
         </div>
         <div class="row align-items-center">
             <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
                 <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="">Messages</a>
-                    <a  href="logout.php">Logout</a>
-                </li>
-                    
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li><a href="index.html">Messages</a></li>
+                    <li><a href="index.html">About</a></li>
                 </ul>
             </div>
         </div>
@@ -255,13 +293,10 @@ if (!isset($_SESSION['user_name'])) {
                 <h1 data-aos="fade-up" class="mb-4">Enseignant Dashboard</h1>
                 <div class="row justify-content-around">
                     <div class="col-lg-8">
-                        <?php echo' <p class="mb-5"  data-aos="fade-up" data-aos-delay="100">Bonjour  '.$_SESSION['user_name'].'<br><br><br>
+                        <p class="mb-5"  data-aos="fade-up" data-aos-delay="100">Bonjour Mr <?php echo $_SESSION['user_name']?><br><br><br>
                             Vous pouvez partager vos nouveaux cours, partager des nouveaux exercices et voir le rendement de vos cours.
-                        </p>';
-                        ?>
-                       
-                    </div> 
-                
+                        </p>
+                    </div>
                 </div>
                 <div data-aos="fade-up" data-aos-delay="100">
                     <a href="#courses-section" class="btn btn-primary mr-2 mb-2">Explorer vos cours</a>
@@ -272,47 +307,88 @@ if (!isset($_SESSION['user_name'])) {
     </div>
 </div>
 <div class="TextCourses">
-    <h1 id="courses-section" >Explorer vos Cours</h1>
+    <h1>Explorer vos Cours</h1>
     <div class="CoursesContainer">
-        <div class="course-card">
-            <div class="course-image">
-                <img src="images/js.png" alt="Javascript Course">
-            </div>
-            <a href="Course.php">
-            <div  class="course-details">
-                <h3 class="course-title">Javascript</h3>
-                <p class="course-instructor">Mr Moussi Mohammed</p>
-                <p class="course-parts">Parties: 10</p>
-            </div></a>
-        </div>
+    <?php
 
-        <div class="course-card">
-            <div class="course-image">
-                <img src="images/C.jpg" alt="Language C Course">
-            </div>
-            <div class="course-details">
-                <h3 class="course-title">Language C</h3>
-                <p class="course-instructor">Mr Ait Moussa Abdelaziz</p>
-                <p class="course-parts">Parties: 8</p>
-            </div>
-        </div>
+if (!isset($_SESSION['user_name'])) {
+    // Redirect to login page if the session is not set
+    header("Location: index.php");
+    exit;
+}
 
-        <div class="course-card">
-            <div class="course-image">
-                <img src="images/JAVA.jpg" alt="Java Course">
-            </div>
-            <div class="course-details">
-                <h3 class="course-title">Java</h3>
-                <p class="course-instructor">Mr Mimouni Saad</p>
-                <p class="course-parts">Parties: 12</p>
-            </div>
-        </div>
+// Assurez-vous que ce fichier contient la connexion à la base de données
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "projet";
+
+// Crée une connexion
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Vérifie la connexion
+if ($conn->connect_error) {
+    die("Échec de la connexion : " . $conn->connect_error);
+}
+
+// Récupère le nom de l'utilisateur connecté
+$user_name = $_SESSION['user_name'];
+
+// Préparez la requête SQL pour récupérer l'ID de l'enseignant connecté
+$query = "SELECT Id_Enseignant FROM enseignant WHERE Nom = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param('s', $user_name);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $id_enseignant = $row['Id_Enseignant'];
+    
+    // Préparez la requête SQL pour récupérer les cours de cet enseignant
+    $query = "SELECT * FROM cours WHERE Id_Enseignant = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('i', $id_enseignant);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // Affichez les cours dans une boucle
+        while ($row = $result->fetch_assoc()) {
+            echo '<div class="course-card">';
+            echo     '<div class="course-image">';
+            echo         '<img src="images/C.jpg" alt="Course Image">'; // Assurez-vous que l'image est correcte pour chaque cours
+            echo     '</div>';
+            echo     '<div class="course-details">';
+            echo         '<div class="course-details-left-container">';
+            echo             '<h3 class="course-title">'.$row['Titre_cours'].'</h3>';
+            echo             '<p class="course-instructor">Mr '.$user_name.'</p>';
+            echo             '<p class="course-parts">Parties: 8</p>'; // Vous pouvez modifier cela pour afficher le nombre de parties réel
+            echo         '</div>';
+            echo         '<div class="course-details-right-container">';
+            echo             '<a href="Course_CRUD.php?id_cours='.$row['Id_Cours'].'" class="next-button"><img src="images/Next.png" alt="Next Arrow" class="img_next"></a>';
+            echo         '</div>';
+            echo     '</div>';
+            echo '</div>';
+        }
+    } else {
+        echo 'Aucun cours trouvé pour cet enseignant.';
+    }
+} else {
+    echo 'Aucun enseignant trouvé avec ce nom.';
+}
+
+$conn->close();
+?>
+
+
     </div>
 </div>
+
 <br>
 <br>
 <div class="statistics-section">
-    <h2 id="enseignant-section">Statistiques</h2>
+    <h2>Statistiques</h2>
     <div class="bar-chart">
         <div class="bar" style="height: 60%;">60%</div>
         <div class="bar" style="height: 52%;">52%</div>
