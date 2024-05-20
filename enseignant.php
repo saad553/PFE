@@ -357,13 +357,13 @@ if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             echo '<div class="course-card">';
             echo     '<div class="course-image">';
-            echo         '<img src="images/C.jpg" alt="Course Image">'; // Assurez-vous que l'image est correcte pour chaque cours
+            echo         '<img src="images/C.jpg" alt="Course Image">';
             echo     '</div>';
             echo     '<div class="course-details">';
             echo         '<div class="course-details-left-container">';
             echo             '<h3 class="course-title">'.$row['Titre_cours'].'</h3>';
             echo             '<p class="course-instructor">Mr '.$user_name.'</p>';
-            echo             '<p class="course-parts">Parties: 8</p>'; // Vous pouvez modifier cela pour afficher le nombre de parties réel
+            echo             '<p class="course-parts">Parties: 8</p>'; 
             echo         '</div>';
             echo         '<div class="course-details-right-container">';
             echo             '<a href="Course_CRUD.php?id_cours='.$row['Id_Cours'].'" class="next-button"><img src="images/Next.png" alt="Next Arrow" class="img_next"></a>';
