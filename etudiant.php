@@ -108,46 +108,17 @@ if (!isset($_SESSION['user_name'])) {
 
     </div>
 
-        </div>
-        <div class="courses-container">
-      <div class="courses-progress">
-        <div class="progress" style="height: 30px; ">
-      <div class="progress-bar progress-bar-striped progress-bar-animated courses-color" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">20%</div>
-    </div></div>
-    
-    <div class="courses-details">
-      <p style="margin-bottom: 0px; font-size:18px;">C</p>
-      <p style="color: #607CB1; font-size:12px; margin-bottom: 0px;">Parties 1/5</p>
-      <p style="font-size:10px;">Pr Moussi</p>
-
-    </div>
-
-        </div>
-        <div class="courses-container">
-      <div class="courses-progress">
-        <div class="progress" style="height: 30px; ">
-      <div class="progress-bar progress-bar-striped progress-bar-animated courses-color" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%">100%</div>
-    </div></div>
-    
-    <div class="courses-details">
-      <p style="margin-bottom: 0px; font-size:18px;">Python</p>
-      <p style="color: #607CB1; font-size:12px; margin-bottom: 0px;">Parties 5/5</p>
-      <p style="font-size:10px;">Pr Moussi</p>
-
-    </div>
-
-        </div>
-            
-   
-   </div> 
+        </div></div>
+        
    <?php
 
 // Query to fetch course details
-$query = "SELECT cours.Id_Cours, cours.Titre_cours, enseignant.Nom AS teacher_name, enseignant.Prenom AS teacher_firstname, COUNT(lesson.Id_lesson) AS lesson_count 
+$query = "SELECT cours.Id_Cours, cours.Titre_cours, cours.Course_Image, enseignant.Nom AS teacher_name, enseignant.Prenom AS teacher_firstname, COUNT(lesson.Id_lesson) AS lesson_count 
           FROM cours
           LEFT JOIN lesson ON cours.Id_Cours = lesson.Id_Cours
           INNER JOIN enseignant ON cours.Id_Enseignant = enseignant.Id_Enseignant
           GROUP BY cours.Id_Cours";
+
 
 $result = $conn->query($query);
 ?>
@@ -155,13 +126,21 @@ $result = $conn->query($query);
 <div id="course-container">
     <?php while($row = $result->fetch_assoc()): ?>
         <div class="course" data-course-id="<?php echo $row['Id_Cours']; ?>">
-            <img src="path/to/image/<?php echo $row['Id_Cours']; ?>.jpg" alt="Course Image">
+            <?php
+            // Get the image data from the database
+            $imageData = base64_encode($row['Course_Image']);
+            // Create the image source using base64 encoding
+            $src = 'data:image/jpeg;base64,' . $imageData;
+            ?>
+            <div style="padding-bottom: 20px;"><img  src="<?php echo $src; ?>" alt="Course Image"></div>
+            
             <h3><?php echo $row['Titre_cours']; ?></h3>
             <p>Lessons: <?php echo $row['lesson_count']; ?></p>
             <p>Teacher: <?php echo $row['teacher_firstname'] . " " . $row['teacher_name']; ?></p>
         </div>
     <?php endwhile; ?>
 </div>
+
 
 
     
@@ -173,7 +152,7 @@ $result = $conn->query($query);
           <div class="col-lg-4">
             <div class="widget">
               <h3>About</h3>
-              <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live.</p>
+              <p>We aim for a better learning experience</p>
             </div>
             <div class="widget">
               <h3>Connect with us</h3>
@@ -193,7 +172,6 @@ $result = $conn->query($query);
 
         <div class="row justify-content-center text-center copyright">
           <div class="col-md-8">
-            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> <!-- License information: https://untree.co/license/ -->
             </p>
           </div>
         </div>

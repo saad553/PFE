@@ -16,35 +16,35 @@ if ($conn->connect_error) {
 
 // Handle login form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $userId = $_POST["user_id"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $userType = ($userId === "enseignant") ? "enseignant" : "etudiant";
-    
-    $sql = "SELECT * FROM $userType WHERE Email = '$email' AND Mot_de_Passe = '$password'";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        // User found, login successful
-        // Redirect user based on user type
-          // User found, login successful
-          $user = $result->fetch_assoc(); // Fetch data of the user
-          $_SESSION['user_name'] = $user['Nom']; // Store user name in session
-          $_SESSION['user_type'] = $userType; // Store user type in session
-        if ($userType === "enseignant") {
-            header("Location: enseignant.php");
-            exit; // Ensure that script execution stops after redirecting
-        } elseif ($userType === "etudiant") {
-            header("Location: etudiant.php");
-            
-            exit; // Ensure that script execution stops after redirecting
+    $userId = isset($_POST["user_id"]) ? $_POST["user_id"] : null;
+    $email = isset($_POST["email"]) ? $_POST["email"] : null;
+    $password = isset($_POST["password"]) ? $_POST["password"] : null;
+
+    if ($userId && $email && $password) {
+        $userType = ($userId === "enseignant") ? "enseignant" : "etudiant";
+        
+        $sql = "SELECT * FROM $userType WHERE Email = ? AND Mot_de_Passe = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $email, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
+            // User found, login successful
+            $user = $result->fetch_assoc(); // Fetch data of the user
+            $_SESSION['user_name'] = $user['Nom']; // Store user name in session
+            $_SESSION['user_type'] = $userType; // Store user type in session
+            if ($userType === "enseignant") {
+                header("Location: enseignant.php");
+            } else {
+                header("Location: etudiant.php");
+            }
+            exit;
+        } else {
+            echo "Invalid email or password for $userType.";
         }
     } else {
-        // User not found or incorrect credentials
-        
-        echo "Invalid email or password for $userType.";
+        echo "All fields are required.";
     }
 }
-
-// Close connection
-
 ?>

@@ -4,14 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Java Course - Lesson 1</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/owl.carousel.min.css">
-  <link rel="stylesheet" href="css/owl.theme.default.min.css">
-  <link rel="stylesheet" href="fonts/icomoon/style.css">
-  <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-  <link rel="stylesheet" href="css/jquery.fancybox.min.css">
-  <link rel="stylesheet" href="css/aos.css">
   <link rel="stylesheet" href="css/style.css">
   <style>
     body {
@@ -81,6 +74,10 @@
     .main-content {
       margin-right: 100px;
       margin-top: 200px;
+    }
+    #next-lesson{
+      margin-top: 50px;
+      margin-bottom: 50px;
     }
   </style>
 </head>
@@ -154,22 +151,25 @@ if ($lesson_result->num_rows > 0) {
     </nav>
     <div class="main-content course-content">
         <h1 class="course-title"><?php echo $course['Titre_cours']; ?> - Lesson 1</h1>
-        <?php echo nl2br($lesson['file_lesson']); ?>
-        <button class="btn btn-primary">Next Lesson</button>
+        <div id="lesson-content">
+            <?php echo nl2br($lesson['file_lesson']); ?>
+        </div>
+        <button class="btn btn-primary" id="next-lesson">Next Lesson</button>
     </div>
     <aside class="sidebar">
         <h2 style="padding-top: 30% !important;">Upcoming Lessons</h2>
         <ul>
             <?php
-            $upcoming_lessons_query = "SELECT Titre_lesson FROM lesson WHERE Id_Cours = $course_id AND Id_lesson > " . $lesson['Id_lesson'] . " ORDER BY Id_lesson ASC";
+            // Ensure the query selects both Id_lesson and Titre_lesson
+            $upcoming_lessons_query = "SELECT Id_lesson, Titre_lesson FROM lesson WHERE Id_Cours = $course_id ORDER BY Id_lesson ASC";
             $upcoming_lessons_result = $conn->query($upcoming_lessons_query);
             while ($upcoming_lesson = $upcoming_lessons_result->fetch_assoc()) {
-                echo '<li><a href="#">' . $upcoming_lesson['Titre_lesson'] . '</a></li>';
+                echo '<li><a href="#" class="lesson-link" data-lesson-id="' . $upcoming_lesson['Id_lesson'] . '">' . $upcoming_lesson['Titre_lesson'] . '</a></li>';
             }
             ?>
         </ul>
     </aside>
-</div>
+
     <section class="exercise-section">
       <h2>Exercises</h2>
       <form id="exercise-form">
@@ -251,10 +251,9 @@ public class Main {
         </ul>
       </div>
     </section>
+    </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
   <script>
     // Handle exercise form submission
     $('#exercise-form').on('submit', function(event) {
@@ -267,5 +266,27 @@ public class Main {
       alert('Comment submitted!');
     });
   </script>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.lesson-link').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const lessonId = this.getAttribute('data-lesson-id');
+            fetchLessonContent(lessonId);
+        });
+    });
+
+    function fetchLessonContent(lessonId) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'fetch_lesson.php?lesson_id=' + lessonId, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                document.getElementById('lesson-content').innerHTML = xhr.responseText;
+            }
+        };
+        xhr.send();
+    }
+});
+</script>
 </body>
 </html>
