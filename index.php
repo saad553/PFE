@@ -36,7 +36,7 @@ include("db_connect.php");
 
     <nav class="site-nav">
       <div class="logo">
-        <a href="index.php"><img class="khdmi" src="logo.png" alt="image-alterna"></a>
+        <a href="index.php"><img class="khdmi" src="./images/logo.png" alt="image-alterna"></a>
       </div>
       <div class="row align-items-center">
         
@@ -87,13 +87,13 @@ include("db_connect.php");
     <!-- HTML code for the left circular image -->
     <div id="teacher" onclick="showLogin('prof')" class="left-image">
       
-        <img src="1596731646_377459.jpeg" alt="Left Image" class="circle-image">
+        <img src="./images/Professeur.jpeg" alt="Left Image" class="circle-image">
         <h1 class="image-text">Teacher</h1>
     </div>
     <!-- HTML code for the right circular image -->
     <div id="student" onclick="showLogin('etudiant')" class="right-image">
       <a>
-        <img src="student-employment-image.jpg" alt="Right Image" class="circle-image">
+        <img src="./images/Etudiant.jpg" alt="Right Image" class="circle-image">
         <h1 class="image-text">Student</h1>
       </a>
     </div>

@@ -5,132 +5,13 @@ if (!isset($_SESSION['user_name'])) {
     header("Location: login.php");
     exit;
 }
-
-
 ?>
 
 <!doctype html>
 <html lang="en">
 <head>
-  <style media="screen">
-    @import url(http://fonts.googleapis.com/css?family=Roboto:400,700,300);
-  
-  body {
-    font-family: "Roboto", sans-serif;
-    background:#212020;
-  
-  }
-
-  .circle-wrap {
-    display:flex;
-    grid-template-columns: repeat(1, 160px);
-    grid-gap: 80px;
-    width: 150px;
-    height: 150px;
-    background: #d9d7da;
-    border-radius: 50%;
-    margin: 5%;
-    
-  }
-  
-  .circle-wrap .circle .mask,
-  .circle-wrap .circle .fill-1,
-  .circle-wrap .circle .fill-2,
-  .circle-wrap .circle .fill-3 {
-    width: 150px;
-    height: 150px;
-    position: absolute;
-    border-radius: 50%;
-  }
-  
-  .circle-wrap .circle .mask {
-    clip: rect(0px, 150px, 150px, 75px);
-  }
-  
-  .circle-wrap .inside-circle {
-    width: 124px;
-    height: 124px;
-    border-radius: 50%;
-    background: #212020;
-    line-height: 120px;
-    text-align: center;
-    margin-top: 13px;
-    margin-left: 13px;
-    color: white;
-    position: absolute;
-    z-index: 100;
-    font-weight: 700;
-    font-size: 2em;
-  }
-  
-  /* color animation */
-  
-  .mask .fill-1 {
-    clip: rect(0px, 75px, 150px, 0px);
-    background-color: #607CB1;;
-  }
-  
-  .mask.full-1,
-  .circle .fill-1 {
-    animation: fill-1 ease-in-out 3s;
-    transform: rotate(153deg);
-    size: 20% ;
-  }
-  
-  @keyframes fill-1 {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(153deg);
-    }
-  }
-  
-  /* 2nd bar */
-  
-  .mask .fill-2 {
-    clip: rect(0px, 75px, 150px, 0px);
-    background-color: #607CB1;;
-  }
-  
-  .mask.full-2,
-  .circle .fill-2 {
-    animation: fill-2 ease-in-out 3s;
-    transform: rotate(117deg);
-  }
-  
-  @keyframes fill-2{
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(117deg);
-    }
-  }
-  
-  /* 3rd progress bar */
-  .mask .fill-3 {
-    clip: rect(0px, 75px, 150px, 0px);
-    background-color: #607CB1;
-  }
-  
-  .mask.full-3,
-  .circle .fill-3 {
-    animation: fill-3 ease-in-out 3s;
-    transform: rotate(135deg);
-  }
-  
-  @keyframes fill-3{
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(135deg);
-    }
-  }
-  
-  
   </style>
+  
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="author" content="Untree.co">
@@ -162,7 +43,7 @@ if (!isset($_SESSION['user_name'])) {
 
     <nav class="site-nav">
       <div class="logo">
-        <a href="index.html"><img class="khdmi" src="logo.png" alt="image-alterna"></a>
+        <a href="#"><img class="khdmi" src=".\images\logo.png" alt="image-alterna"></a>
       </div>
       <div class="row align-items-center">
         
@@ -205,60 +86,84 @@ if (!isset($_SESSION['user_name'])) {
           </div>
             
         </div>
+
+        
       </div>
 
       
     </div> 
+    
 
   <div class="khdmi2" id="student-section">
+    <div class="courses-container">
+      <div class="courses-progress">
+        <div class="progress" style="height: 30px; ">
+      <div class="progress-bar progress-bar-striped progress-bar-animated courses-color" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75%</div>
+    </div></div>
+    
+    <div class="courses-details">
+      <p style="margin-bottom: 0px; font-size:18px;">Javascript</p>
+      <p style="color: #607CB1; font-size:12px; margin-bottom: 0px;">Parties 1/3</p>
+      <p style="font-size:10px;">Pr Moussi</p>
 
-        <div class="circle-wrap">
-          <div class="circle">
-            <div class="mask full-1">
-              <div class="fill-1"></div>
-            </div>
-            <div class="mask half">
-              <div class="fill-1"></div>
-            </div>
-            <div class="inside-circle"> 85% </div>
-          </div>
+    </div>
+
         </div>
-          <div class="circle-wrap">
-            <div class="circle">
-              <div class="mask full-2">
-                <div class="fill-2"></div>
-              </div>
-              <div class="mask half">
-                <div class="fill-2"></div>
-              </div>
-              <div class="inside-circle"> 65% </div>
-            </div>
-          </div>
-          <div class="circle-wrap">
-            <div class="circle">
-              <div class="mask full-2">
-                <div class="fill-2"></div>
-              </div>
-              <div class="mask half">
-                <div class="fill-2"></div>
-              </div>
-              <div class="inside-circle"> 10% </div>
-            </div>
-          </div>
-            <div class="circle-wrap">
-              <div class="circle">
-                <div class="mask full-3">
-                  <div class="fill-3"></div>
-                </div>
-                <div class="mask half">
-                  <div class="fill-3"></div>
-                </div>
-                <div class="inside-circle"> 75% </div>
-              </div>
-            </div>
+        <div class="courses-container">
+      <div class="courses-progress">
+        <div class="progress" style="height: 30px; ">
+      <div class="progress-bar progress-bar-striped progress-bar-animated courses-color" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">20%</div>
+    </div></div>
+    
+    <div class="courses-details">
+      <p style="margin-bottom: 0px; font-size:18px;">C</p>
+      <p style="color: #607CB1; font-size:12px; margin-bottom: 0px;">Parties 1/5</p>
+      <p style="font-size:10px;">Pr Moussi</p>
+
+    </div>
+
+        </div>
+        <div class="courses-container">
+      <div class="courses-progress">
+        <div class="progress" style="height: 30px; ">
+      <div class="progress-bar progress-bar-striped progress-bar-animated courses-color" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%">100%</div>
+    </div></div>
+    
+    <div class="courses-details">
+      <p style="margin-bottom: 0px; font-size:18px;">Python</p>
+      <p style="color: #607CB1; font-size:12px; margin-bottom: 0px;">Parties 5/5</p>
+      <p style="font-size:10px;">Pr Moussi</p>
+
+    </div>
+
+        </div>
             
    
    </div> 
+   <?php
+
+// Query to fetch course details
+$query = "SELECT cours.Id_Cours, cours.Titre_cours, enseignant.Nom AS teacher_name, enseignant.Prenom AS teacher_firstname, COUNT(lesson.Id_lesson) AS lesson_count 
+          FROM cours
+          LEFT JOIN lesson ON cours.Id_Cours = lesson.Id_Cours
+          INNER JOIN enseignant ON cours.Id_Enseignant = enseignant.Id_Enseignant
+          GROUP BY cours.Id_Cours";
+
+$result = $conn->query($query);
+?>
+
+<div id="course-container">
+    <?php while($row = $result->fetch_assoc()): ?>
+        <div class="course" data-course-id="<?php echo $row['Id_Cours']; ?>">
+            <img src="path/to/image/<?php echo $row['Id_Cours']; ?>.jpg" alt="Course Image">
+            <h3><?php echo $row['Titre_cours']; ?></h3>
+            <p>Lessons: <?php echo $row['lesson_count']; ?></p>
+            <p>Teacher: <?php echo $row['teacher_firstname'] . " " . $row['teacher_name']; ?></p>
+        </div>
+    <?php endwhile; ?>
+</div>
+
+
     
 
 
@@ -314,7 +219,20 @@ if (!isset($_SESSION['user_name'])) {
     <script src="js/jquery.waypoints.min.js"></script>
     <script src="js/jquery.fancybox.min.js"></script>
     <script src="js/custom.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.course').forEach(function(course) {
+        course.addEventListener('click', function() {
+            const courseId = this.getAttribute('data-course-id');
+            window.location.href = 'course.php?course_id=' + courseId;
+        });
+    });
+});
+</script>
+
+
 
     
   </body>
   </html>
+  

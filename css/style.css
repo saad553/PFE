@@ -629,14 +629,73 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
 
   .khdmi2{
     align-items: center;
+    display: flex;
     width: 100%;
     height: 100%;
-    display: flex;
     box-shadow: #000;
-    border-style: double;justify-content: center;
+    justify-content: center;
+    padding: 10%;
+    gap: 20px;
 
   }
 
+  .course {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0px 0px 200px 30px rgba(0, 0, 0, 0.1);   
+
+}
+.course img {
+    width: 100%;
+    height: auto;
+}
+
+#course-container {
+    display: flex;
+    padding: 10%;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between the courses */
+}
+
+  .courses-color{
+    background-color: #607CB1;
+  }
+
+
+  .courses-container{
+    position: relative;
+    width: 250px;
+    height: 300px;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0px 0px 200px 30px rgba(0, 0, 0, 0.1);   
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #0000003f;  }
+
+  .courses-progress{
+    padding: 8%;
+    padding-top: 30%;
+    align-items: center;
+  }
+
+
+  .courses-details{
+    padding-top: 10%;
+    padding-bottom: 10%;
+    background-color: #FAFAF5;
+    position: absolute;
+    bottom: 0;
+    height: 35%;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
 /* Click */
 .burger.active span {
   opacity: 0; }
@@ -1694,12 +1753,12 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   color: #3369e7; }
 
 .site-footer {
-  padding-top: 70px;
-  padding-bottom: 30px;
+  padding-top: 2%;
+  padding-bottom: 2%;
   font-size: 15px; }
   @media (max-width: 991.98px) {
     .site-footer {
-      padding-top: 30px; } }
+      padding-top: 30%; } }
   .site-footer a {
     color: #000000; }
     .site-footer a:hover {
@@ -1736,15 +1795,3 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
         color: #000000; }
         .site-footer .widget .links li a:hover {
           color: #3369e7; }
-  .site-footer .copyright {
-    position: relative;
-    padding-top: 40px;
-    margin-top: 40px; }
-    .site-footer .copyright:before {
-      top: 0;
-      position: absolute;
-      left: 15px;
-      right: 15px;
-      content: "";
-      height: 1px;
-      background: #ebedee; }

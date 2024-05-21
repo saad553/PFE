@@ -85,75 +85,91 @@
   </style>
 </head>
 <body>
-  <div class="container">
+<?php
+include("db_connect.php");
+
+if (!isset($_GET['course_id'])) {
+    echo "Course ID not provided.";
+    exit;
+}
+
+$course_id = intval($_GET['course_id']);
+
+// Fetch course details
+$course_query = "SELECT Titre_cours FROM cours WHERE Id_Cours = $course_id";
+$course_result = $conn->query($course_query);
+if ($course_result->num_rows > 0) {
+    $course = $course_result->fetch_assoc();
+} else {
+    echo "Course not found.";
+    exit;
+}
+
+// Fetch the first lesson for the course
+$lesson_query = "SELECT * FROM lesson WHERE Id_Cours = $course_id ORDER BY Id_lesson ASC LIMIT 1";
+$lesson_result = $conn->query($lesson_query);
+if ($lesson_result->num_rows > 0) {
+    $lesson = $lesson_result->fetch_assoc();
+} else {
+    echo "No lessons found for this course.";
+    exit;
+}
+?>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Untree.co">
+    <link rel="shortcut icon" href="./images/logo.png" sizes="64x64">
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title><?php echo $course['Titre_cours']; ?></title>
+</head>
+<body>
+<div class="container">
     <nav class="site-nav" style="background-color: #1c394d;">
-      <div class="logo">
-        <a href="index.html"><img class="khdmi" src="logo.png" alt="image-alterna"></a>
-      </div>
-      <div class="row align-items-center">
-        <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
-          <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
-            <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="index.html">Messages</a></li>
-            <li><a href="index.html">About</a></li>
-          </ul>
+        <div class="logo">
+            <a href="index.html"><img class="khdmi" src="./images/logo.png" alt="image-alterna"></a>
         </div>
-      </div>
+        <div class="row align-items-center">
+            <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
+                <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li><a href="index.html">Messages</a></li>
+                    <li><a href="index.html">About</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
     <div class="main-content course-content">
-      <h1 class="course-title">Java Programming - Lesson 1</h1>
-      <p>Welcome to the first lesson of Java programming. In this lesson, you will learn about the basics of Java, including syntax, data types, and basic operations. Java is a versatile and powerful programming language used for a variety of applications.</p>
-      <p>Java was developed by James Gosling at Sun Microsystems and released in 1995. It is an object-oriented language that is platform-independent, which means that Java programs can run on any device that has a Java Virtual Machine (JVM).</p>
-      <h2>1. Introduction to Java</h2>
-      <p>Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It is intended to let application developers write once, run anywhere (WORA), meaning that compiled Java code can run on all platforms that support Java without the need for recompilation.</p>
-      <p>The syntax of Java is largely influenced by C and C++, but it has fewer low-level facilities than either of them. The language's design provides a broad range of features for networking, database access, graphical user interfaces (GUIs), and more.</p>
-      <h2>2. Basic Syntax</h2>
-      <p>Java syntax is the set of rules defining how a Java program is written and interpreted. The basic syntax includes the following components:</p>
-      <ul>
-        <li><strong>Classes and Objects:</strong> A class is a blueprint for objects. It defines a datatype by bundling data and methods that work on the data into one single unit.</li>
-        <li><strong>Methods:</strong> A method is a collection of statements that perform some specific task and return the result to the caller. A method can perform some specific task without returning anything.</li>
-        <li><strong>Variables:</strong> Variables are containers for storing data values.</li>
-        <li><strong>Data Types:</strong> Java is a strongly typed language. Every variable must be declared with a data type.</li>
-      </ul>
-      <p>Let's start with a simple "Hello, World!" program in Java:</p>
-      <pre><code>
-public class Main {
-  public static void main(String[] args) {
-    System.out.println("Hello, World!");
-  }
-}
-      </code></pre>
-      <p>This program consists of a class named Main that contains a single method named main. The main method is the entry point of any Java program. The System.out.println method is used to print text to the console.</p>
-      <h2>3. Data Types</h2>
-      <p>Java has a rich set of built-in data types. These data types are classified into two categories:</p>
-      <ul>
-        <li><strong>Primitive Data Types:</strong> These include byte, short, int, long, float, double, boolean, and char.</li>
-        <li><strong>Non-Primitive Data Types:</strong> These include classes, interfaces, and arrays.</li>
-      </ul>
-      <h2>4. Basic Operations</h2>
-      <p>Java provides a wide range of operators to perform operations on variables and values. These operators can be classified as follows:</p>
-      <ul>
-        <li><strong>Arithmetic Operators:</strong> These are used to perform basic arithmetic operations like addition, subtraction, multiplication, division, and modulus.</li>
-        <li><strong>Relational Operators:</strong> These are used to compare two values and determine the relationship between them.</li>
-        <li><strong>Logical Operators:</strong> These are used to combine multiple boolean expressions or conditions.</li>
-        <li><strong>Assignment Operators:</strong> These are used to assign values to variables.</li>
-      </ul>
-      <button class="btn btn-primary">Next Lesson</button>
+        <h1 class="course-title"><?php echo $course['Titre_cours']; ?> - Lesson 1</h1>
+        <?php echo nl2br($lesson['file_lesson']); ?>
+        <button class="btn btn-primary">Next Lesson</button>
     </div>
     <aside class="sidebar">
-      <h2>Upcoming Lessons</h2>
-      <ul>
-        <li><a href="#">Lesson 2: Variables and Data Types</a></li>
-        <li><a href="#">Lesson 3: Control Flow Statements</a></li>
-        <li><a href="#">Lesson 4: Methods</a></li>
-        <li><a href="#">Lesson 5: Object-Oriented Programming</a></li>
-        <li><a href="#">Lesson 6: Exception Handling</a></li>
-        <li><a href="#">Lesson 7: Arrays</a></li>
-        <li><a href="#">Lesson 8: Collections Framework</a></li>
-        <li><a href="#">Lesson 9: Java I/O</a></li>
-        <li><a href="#">Lesson 10: Multithreading</a></li>
-      </ul>
+        <h2 style="padding-top: 30% !important;">Upcoming Lessons</h2>
+        <ul>
+            <?php
+            $upcoming_lessons_query = "SELECT Titre_lesson FROM lesson WHERE Id_Cours = $course_id AND Id_lesson > " . $lesson['Id_lesson'] . " ORDER BY Id_lesson ASC";
+            $upcoming_lessons_result = $conn->query($upcoming_lessons_query);
+            while ($upcoming_lesson = $upcoming_lessons_result->fetch_assoc()) {
+                echo '<li><a href="#">' . $upcoming_lesson['Titre_lesson'] . '</a></li>';
+            }
+            ?>
+        </ul>
     </aside>
+</div>
     <section class="exercise-section">
       <h2>Exercises</h2>
       <form id="exercise-form">

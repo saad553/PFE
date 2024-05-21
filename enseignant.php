@@ -271,14 +271,14 @@ if (!isset($_SESSION['user_name'])) {
 <div class="container">
     <nav class="site-nav">
         <div class="logo">
-            <a href="index.html"><img class="khdmi" src="Untitled design.png" alt="image-alterna"></a>
+            <a href="#"><img class="khdmi" src="./images/logo.png" alt="image-alterna"></a>
         </div>
         <div class="row align-items-center">
             <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
                 <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
-                    <li class="active"><a href="index.html">Home</a></li>
-                    <li><a href="index.html">Messages</a></li>
-                    <li><a href="index.html">About</a></li>
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="">Messages</a></li>
+                    <li><a href="logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -366,7 +366,7 @@ if ($result->num_rows > 0) {
             echo             '<p class="course-parts">Parties: 8</p>'; // Vous pouvez modifier cela pour afficher le nombre de parties réel
             echo         '</div>';
             echo         '<div class="course-details-right-container">';
-            echo             '<a href="Course_CRUD.php?id_cours='.$row['Id_Cours'].'" class="next-button"><img src="images/Next.png" alt="Next Arrow" class="img_next"></a>';
+            echo             '<a href="Course_CRUD.php?id_cours='.$row['Id_Cours'].'" class="next-button"><img src="./images/Next.png" alt="Next Arrow" class="img_next"></a>';
             echo         '</div>';
             echo     '</div>';
             echo '</div>';
