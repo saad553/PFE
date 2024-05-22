@@ -271,14 +271,14 @@ if (!isset($_SESSION['user_name'])) {
 <div class="container">
     <nav class="site-nav">
         <div class="logo">
-            <a href="#"><img class="khdmi" src="./images/logo.png" alt="image-alterna"></a>
+            <a href="index.html"><img class="khdmi" src="Untitled design.png" alt="image-alterna"></a>
         </div>
         <div class="row align-items-center">
             <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
                 <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="">Messages</a></li>
-                    <li><a href="logout.php">Logout</a></li>
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li><a href="index.html">Messages</a></li>
+                    <li><a href="index.html">About</a></li>
                 </ul>
             </div>
         </div>
@@ -335,7 +335,7 @@ if ($conn->connect_error) {
 $user_name = $_SESSION['user_name'];
 
 // Préparez la requête SQL pour récupérer l'ID de l'enseignant connecté
-$query = "SELECT Id_Enseignant FROM enseignant WHERE Nom = ?";
+$query = "SELECT Id_Enseignant, Nom, Prenom FROM enseignant WHERE Nom = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param('s', $user_name);
 $stmt->execute();
@@ -344,8 +344,10 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $id_enseignant = $row['Id_Enseignant'];
+    $nom_enseignant=$row['Nom'];
+    $prenom_enseignant=$row['Prenom'];
     
-    // Préparez la requête SQL pour récupérer les cours de cet enseignant
+    //Requete pour recuperer le cours du prof
     $query = "SELECT * FROM cours WHERE Id_Enseignant = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param('i', $id_enseignant);
@@ -357,16 +359,19 @@ if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             echo '<div class="course-card">';
             echo     '<div class="course-image">';
-            echo         '<img src="images/C.jpg" alt="Course Image">';
+            $imageData = base64_encode($row['Course_Image']);
+            // Create the image source using base64 encoding
+            $src = 'data:image/jpeg;base64,' . $imageData;
+            echo         '<img src="'.$src.'" alt="Course Image" id="cours'.$row['Id_Cours'].'">';
             echo     '</div>';
             echo     '<div class="course-details">';
             echo         '<div class="course-details-left-container">';
             echo             '<h3 class="course-title">'.$row['Titre_cours'].'</h3>';
-            echo             '<p class="course-instructor">Mr '.$user_name.'</p>';
+            echo             '<p class="course-instructor">Mr '.$user_name.' '.$prenom_enseignant.'</p>';
             echo             '<p class="course-parts">Parties: 8</p>'; 
             echo         '</div>';
             echo         '<div class="course-details-right-container">';
-            echo             '<a href="Course_CRUD.php?id_cours='.$row['Id_Cours'].'" class="next-button"><img src="./images/Next.png" alt="Next Arrow" class="img_next"></a>';
+            echo             '<a href="Course_CRUD.php" class="next-button"><img src="images/Next.png" alt="Next Arrow" class="img_next"></a>';
             echo         '</div>';
             echo     '</div>';
             echo '</div>';

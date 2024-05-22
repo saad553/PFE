@@ -20,7 +20,7 @@ if (!isset($_SESSION['user_name'])) {
                 <a href="index.html"><img class="khdmi" src="Untitled design.png" alt="image-alterna"></a>
             </div>
             <div class="header-links">
-                <a href="index.html">Home</a>
+                <a href="enseignant.php">Home</a>
                 <a href="about.html">About Us</a>
                 <a href="cours.html">Cours</a>
                 <a href="contact.html">Contact Us</a>
@@ -54,7 +54,7 @@ if (!isset($_SESSION['user_name'])) {
 
                 $user_name = $_SESSION['user_name'];
 
-                $query = "SELECT Id_Enseignant FROM enseignant WHERE Nom = ?";
+                $query = "SELECT Id_Enseignant, Nom, Prenom FROM enseignant WHERE Nom = ?";
                 $stmt = $conn->prepare($query);
                 $stmt->bind_param('s', $user_name);
                 $stmt->execute();
@@ -63,6 +63,8 @@ if (!isset($_SESSION['user_name'])) {
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
                     $id_enseignant = $row['Id_Enseignant'];
+                    $nom_enseignant=$row['Nom'];
+                    $prenom_enseignant=$row['Prenom'];
 
                     $query = "SELECT * FROM cours WHERE Id_Enseignant = ?";
                     $stmt = $conn->prepare($query);
@@ -75,15 +77,14 @@ if (!isset($_SESSION['user_name'])) {
                             echo '<div class="course-card">';
                             echo     '<div class="course-image">';
                             $imageData = base64_encode($row['Course_Image']);
-            // Create the image source using base64 encoding
-            $src = 'data:image/jpeg;base64,' . $imageData;
-                            echo         '<img src="'.$src.'" alt="Course Image">';
+                            $src = 'data:image/jpeg;base64,' . $imageData;
+                            echo         '<img src="'.$src.'" alt="Course Image" id="cours'.$row['Id_Cours'].'">';
                             echo     '</div>';
                             echo     '<div class="course-details">';
                             echo         '<div class="course-details-left-container">';
                             echo             '<h3 class="course-title">'.$row['Titre_cours'].'</h3>';
-                            echo             '<p class="course-instructor">Mr '.$user_name.'</p>';
-                            echo             '<p class="course-parts">Parts: 8</p>';
+                            echo             '<p class="course-instructor">Mr '.$user_name.' '.$prenom_enseignant.'</p>';
+                            echo             '<p class="course-parts">Parts:</p>';
                             echo         '</div>';
                             echo         '<div class="course-details-right-container">';
                             echo             '<a href="#Modifier" class="edit-button" onclick="editCourse('.$row['Id_Cours'].')"><img src="images/pen.png" alt="Pen" class="img_pen"></a>';
