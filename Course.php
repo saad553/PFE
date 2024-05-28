@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Java Course - Lesson 1</title>
+  <title>Java Course - Lesson<?php ?></title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <style>
@@ -119,7 +119,7 @@ if ($lesson_result->num_rows > 0) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Untree.co">
-    <link rel="shortcut icon" href="./images/logo.png" sizes="64x64">
+    <link rel="shortcut icon" href="../images/logo.png" sizes="64x64">
     <meta name="description" content="" />
     <meta name="keywords" content="bootstrap, bootstrap4" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
@@ -137,7 +137,7 @@ if ($lesson_result->num_rows > 0) {
 <div class="container">
     <nav class="site-nav" style="background-color: #1c394d;">
         <div class="logo">
-            <a href="index.html"><img class="khdmi" src="./images/logo.png" alt="image-alterna"></a>
+            <a href="index.html"><img class="khdmi" src="../images/logo.png" alt="image-alterna"></a>
         </div>
         <div class="row align-items-center">
             <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
@@ -150,7 +150,7 @@ if ($lesson_result->num_rows > 0) {
         </div>
     </nav>
     <div class="main-content course-content">
-        <h1 class="course-title"><?php echo $course['Titre_cours']; ?> - Lesson 1</h1>
+        <h1 class="course-title"><?php echo "{$course['Titre_cours']} - {$lesson['Titre_lesson']}";?> </h1>
         <div id="lesson-content">
             <?php echo nl2br($lesson['file_lesson']); ?>
         </div>
@@ -164,7 +164,7 @@ if ($lesson_result->num_rows > 0) {
             $upcoming_lessons_query = "SELECT Id_lesson, Titre_lesson FROM lesson WHERE Id_Cours = $course_id ORDER BY Id_lesson ASC";
             $upcoming_lessons_result = $conn->query($upcoming_lessons_query);
             while ($upcoming_lesson = $upcoming_lessons_result->fetch_assoc()) {
-                echo '<li><a href="#" class="lesson-link" data-lesson-id="' . $upcoming_lesson['Id_lesson'] . '">' . $upcoming_lesson['Titre_lesson'] . '</a></li>';
+              echo '<li><a href="#" class="lesson-link" data-lesson-id="' . $upcoming_lesson['Id_lesson'] . '">' . $upcoming_lesson['Titre_lesson'] . '</a></li>';
             }
             ?>
         </ul>

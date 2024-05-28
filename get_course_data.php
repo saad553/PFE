@@ -1,61 +1,29 @@
 <?php
-include("db_connect.php"); // Assurez-vous que ce fichier contient la connexion à la base de données
+session_start();
+include 'db_connect.php';
 
-// Vérifiez si l'ID du cours est passé en paramètre
-if (isset($_GET['course_id'])) {
-    $course_id = $_GET['course_id'];
+$student_id = $_SESSION['user_id']; // Ensure the user ID is stored in the session during login
+$course_id = $_POST['course_id'];
 
-    // Créez une connexion à la base de données
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "projet";
+// Check if the course is already in progress for this student
+$query = "SELECT * FROM course_progress WHERE Id_Cours = ? AND Id_Etudiant = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("ii", $course_id, $student_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+if ($result->num_rows == 0) {
+    // Insert new course progress
+    $insert_query = "INSERT INTO course_progress (Id_Cours, Id_Etudiant, progress) VALUES (?, ?, 0)";
+    $insert_stmt = $conn->prepare($insert_query);
+    $insert_stmt->bind_param("ii", $course_id, $student_id);
 
-    // Vérifiez la connexion
-    if ($conn->connect_error) {
-        die("Échec de la connexion : " . $conn->connect_error);
-    }
-
-    // Préparez la requête SQL pour récupérer les informations du cours
-    $query = "SELECT Titre_cours FROM cours WHERE Id_Cours = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param('i', $course_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        $course = $result->fetch_assoc();
-        $courseTitle = $course['Titre_cours'];
-
-        // Préparez la requête SQL pour récupérer les leçons du cours
-        $query = "SELECT Id_lesson, Titre_lesson FROM lesson WHERE Id_Cours = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $course_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        $lessons = [];
-        while ($row = $result->fetch_assoc()) {
-            $lessons[] = [
-                'id' => $row['Id_lesson'],
-                'title' => $row['Titre_lesson']
-            ];
-        }
-
-        // Renvoyez les données sous forme de JSON
-        echo json_encode([
-            'courseTitle' => $courseTitle,
-            'lessons' => $lessons
-        ]);
+    if ($insert_stmt->execute()) {
+        echo json_encode(['success' => true]);
     } else {
-        echo json_encode(['error' => 'Cours non trouvé.']);
+        echo json_encode(['success' => false, 'error' => 'Failed to insert']);
     }
-
-    // Fermez la connexion à la base de données
-    $conn->close();
 } else {
-    echo json_encode(['error' => 'ID du cours non spécifié.']);
+    echo json_encode(['success' => false, 'error' => 'Course already in progress']);
 }
 ?>
