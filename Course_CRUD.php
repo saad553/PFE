@@ -17,7 +17,7 @@ if (!isset($_SESSION['user_name'])) {
     <div class="container">
         <nav class="site-nav">
             <div class="logo">
-                <a href="index.html"><img class="khdmi" src="Untitled design.png" alt="image-alterna"></a>
+                <a href="enseignant.php"><img class="khdmi" src=".\images\logo.png" alt="image-alterna"></a>            
             </div>
             <div class="header-links">
                 <a href="enseignant.php">Home</a>
