@@ -63,7 +63,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60vh; /* Reduced height of the outer container */
+  height: 100%; /* Reduced height of the outer container */
   background-color: rgba(255, 255, 255, 0.5); /* Reduced opacity for the outer container */
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5); /* Stylish drop shadow for the outer container */
   z-index: -1;

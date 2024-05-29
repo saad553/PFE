@@ -21,9 +21,9 @@ if (!isset($_SESSION['user_name'])) {
             </div>
             <div class="header-links">
                 <a href="enseignant.php">Home</a>
-                <a href="about.html">About Us</a>
-                <a href="cours.html">Cours</a>
-                <a href="contact.html">Contact Us</a>
+                <a href="#">About Us</a>
+                <a href="enseignant.php">Cours</a>
+                <a href="logout.php">Logout</a>
             </div>
         </nav>
         <header class="header">

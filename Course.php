@@ -142,9 +142,9 @@ if ($lesson_result->num_rows > 0) {
         <div class="row align-items-center">
             <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
                 <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
-                    <li class="active"><a href="index.html">Home</a></li>
+                    <li class="active"><a href="etudiant.php">Home</a></li>
                     <li><a href="index.html">Messages</a></li>
-                    <li><a href="index.html">About</a></li>
+                    <li><a href="logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>
