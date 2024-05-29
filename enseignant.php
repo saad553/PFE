@@ -312,7 +312,7 @@ if (!isset($_SESSION['user_name'])) {
     <?php
 
 if (!isset($_SESSION['user_name'])) {
-    // Redirect to login page if the session is not set
+
     header("Location: index.php");
     exit;
 }

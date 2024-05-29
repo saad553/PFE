@@ -84,7 +84,7 @@ if (!isset($_SESSION['user_name'])) {
                             echo         '<div class="course-details-left-container">';
                             echo             '<h3 class="course-title">'.$row['Titre_cours'].'</h3>';
                             echo             '<p class="course-instructor">Mr '.$user_name.' '.$prenom_enseignant.'</p>';
-                            echo             '<p class="course-parts">Parts:</p>';
+                            echo             '<p class="course-parts">Parts: 3</p>';
                             echo         '</div>';
                             echo         '<div class="course-details-right-container">';
                             echo             '<a href="#Modifier" class="edit-button" onclick="editCourse('.$row['Id_Cours'].')"><img src="images/pen.png" alt="Pen" class="img_pen"></a>';

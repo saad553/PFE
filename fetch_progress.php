@@ -5,7 +5,7 @@ if (isset($_GET['course_id']) && isset($_GET['student_id'])) {
     $course_id = $_GET['course_id'];
     $student_id = $_GET['student_id'];
 
-    $progress_query = "SELECT cp.progress, c.Titre_cours, e.Nom AS teacher_name, e.Prenom AS teacher_firstname, 
+    $progress_query = "SELECT cp.progress, c.Titre_cours, c.Id_Cours, e.Nom AS teacher_name, e.Prenom AS teacher_firstname, 
                        (SELECT COUNT(*) FROM lesson WHERE Id_Cours = c.Id_Cours) AS lesson_count
                        FROM course_progress cp
                        JOIN cours c ON cp.Id_Cours = c.Id_Cours
@@ -32,7 +32,6 @@ if (isset($_GET['course_id']) && isset($_GET['student_id'])) {
           </div>
           <div class="courses-details">
             <p style="margin-bottom: 0px; font-size:18px;"><?php echo $course_title; ?></p>
-            <p style="color: #607CB1; font-size:12px; margin-bottom: 0px;">Parties 0/<?php echo $lesson_count; ?></p>
             <p style="font-size:10px;"><?php echo $teacher_name; ?></p>
           </div>
         </div>

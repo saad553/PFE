@@ -75,7 +75,7 @@ $student_id = $student_data['Id_Etudiant'];
   <div class="khdmi2" id="student-section">    
     <?php
     // Fetch course progress details for the student
-    $progress_query = "SELECT cp.progress, c.Titre_cours, e.Nom AS teacher_name, e.Prenom AS teacher_firstname, COUNT(l.Id_lesson) AS lesson_count
+    $progress_query = "SELECT cp.progress, c.Titre_cours, c.Id_Cours, e.Nom AS teacher_name, e.Prenom AS teacher_firstname, COUNT(l.Id_lesson) AS lesson_count
                        FROM course_progress cp
                        JOIN cours c ON cp.Id_Cours = c.Id_Cours
                        JOIN enseignant e ON c.Id_Enseignant = e.Id_Enseignant
@@ -90,10 +90,11 @@ $student_id = $student_data['Id_Etudiant'];
       $teacher_name = $progress_row['teacher_firstname'] . " " . $progress_row['teacher_name'];
       $lesson_count = $progress_row['lesson_count'];
       $progress = $progress_row['progress'];
-      $progress_percentage = min($progress, 100); // Cap progress at 100%
+      $progress_percentage = $progress; // Cap progress at 100%
+      $course_id=$progress_row['Id_Cours'];
       $courses_in_progress[] = $progress_row['Titre_cours'];
     ?>
-      <div class="courses-container">
+      <div class="courses-container" data-course-id="<?php echo $course_id; ?>">
         <div class="courses-progress">
           <div class="progress" style="height: 30px;">
             <div class="progress-bar progress-bar-striped progress-bar-animated courses-color" role="progressbar" aria-valuenow="<?php echo $progress_percentage; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $progress_percentage; ?>%">
@@ -103,7 +104,6 @@ $student_id = $student_data['Id_Etudiant'];
         </div>
         <div class="courses-details">
           <p style="margin-bottom: 0px; font-size:18px;"><?php echo $course_title; ?></p>
-          <p style="color: #607CB1; font-size:12px; margin-bottom: 0px;">Parties 0/<?php echo $lesson_count; ?></p>
           <p style="font-size:10px;"><?php echo $teacher_name; ?></p>
         </div>
       </div>
@@ -186,7 +186,7 @@ $student_id = $student_data['Id_Etudiant'];
   <script src="js/custom.js"></script>
   <script>
   document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.course').forEach(function(course) {
+    document.querySelectorAll('.course, .courses-container').forEach(function(course) {
       course.addEventListener('click', function() {
         const courseId = this.getAttribute('data-course-id');
         const studentId = '<?php echo $student_id; ?>';
