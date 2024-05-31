@@ -2,12 +2,10 @@
 include("db_connect.php");
 
 if (!isset($_SESSION['user_name'])) {
-    // Redirect to login page if the session is not set
     header("Location: login.php");
     exit;
 }
 
-// Fetch the student ID from session or database
 $user_name = $_SESSION['user_name'];
 $student_query = "SELECT Id_Etudiant FROM etudiant WHERE Nom = '$user_name'";
 $student_result = $conn->query($student_query);
@@ -50,8 +48,8 @@ $student_id = $student_data['Id_Etudiant'];
           </ul>
         </div>
       </div>  
-    </nav> <!-- END nav -->
-  </div> <!-- END container -->
+    </nav>
+  </div>
 
   <div class="site-blocks-cover overlay" data-aos="fade" id="home-section">
     <div class="container">
@@ -74,23 +72,21 @@ $student_id = $student_data['Id_Etudiant'];
 
   <div class="khdmi2" id="student-section">    
     <?php
-    // Fetch course progress details for the student
-    $progress_query = "SELECT cp.progress, c.Titre_cours, c.Id_Cours, e.Nom AS teacher_name, e.Prenom AS teacher_firstname, COUNT(l.Id_lesson) AS lesson_count
+    $progress_query = "SELECT cp.progress, c.Titre_cours, c.Id_Cours, e.Nom AS teacher_name, e.Prenom AS teacher_firstname, 
+                       (SELECT COUNT(DISTINCT l.Id_lesson) FROM lesson l WHERE l.Id_Cours = c.Id_Cours) AS lesson_count
                        FROM course_progress cp
                        JOIN cours c ON cp.Id_Cours = c.Id_Cours
                        JOIN enseignant e ON c.Id_Enseignant = e.Id_Enseignant
-                       LEFT JOIN lesson l ON c.Id_Cours = l.Id_Cours
                        WHERE cp.Id_Etudiant = '$student_id'
                        GROUP BY cp.Id_Cours";
     $progress_result = $conn->query($progress_query);
-
     $courses_in_progress = [];
     while($progress_row = $progress_result->fetch_assoc()):
       $course_title = $progress_row['Titre_cours'];
       $teacher_name = $progress_row['teacher_firstname'] . " " . $progress_row['teacher_name'];
       $lesson_count = $progress_row['lesson_count'];
       $progress = $progress_row['progress'];
-      $progress_percentage = $progress; // Cap progress at 100%
+      $progress_percentage = $progress;
       $course_id=$progress_row['Id_Cours'];
       $courses_in_progress[] = $progress_row['Titre_cours'];
     ?>
@@ -104,6 +100,7 @@ $student_id = $student_data['Id_Etudiant'];
         </div>
         <div class="courses-details">
           <p style="margin-bottom: 0px; font-size:18px;"><?php echo $course_title; ?></p>
+          <p style="color: #607CB1; font-size:12px; margin-bottom: 0px;">Parties 0/<?php echo $lesson_count; ?></p>
           <p style="font-size:10px;"><?php echo $teacher_name; ?></p>
         </div>
       </div>
@@ -111,11 +108,10 @@ $student_id = $student_data['Id_Etudiant'];
   </div>
 
   <?php
-  // Query to fetch course details excluding those in progress
   $courses_in_progress_str = implode("', '", $courses_in_progress);
-  $query = "SELECT cours.Id_Cours, cours.Titre_cours, cours.Course_Image, enseignant.Nom AS teacher_name, enseignant.Prenom AS teacher_firstname, COUNT(lesson.Id_lesson) AS lesson_count 
+  $query = "SELECT cours.Id_Cours, cours.Titre_cours, cours.Course_Image, enseignant.Nom AS teacher_name, enseignant.Prenom AS teacher_firstname, 
+            (SELECT COUNT(DISTINCT lesson.Id_lesson) FROM lesson WHERE lesson.Id_Cours = cours.Id_Cours) AS lesson_count 
             FROM cours
-            LEFT JOIN lesson ON cours.Id_Cours = lesson.Id_Cours
             INNER JOIN enseignant ON cours.Id_Enseignant = enseignant.Id_Enseignant
             WHERE cours.Titre_cours NOT IN ('$courses_in_progress_str')
             GROUP BY cours.Id_Cours";
@@ -126,9 +122,7 @@ $student_id = $student_data['Id_Etudiant'];
     <?php while($row = $result->fetch_assoc()): ?>
       <div class="course" id="course-<?php echo $row['Id_Cours']; ?>" data-course-id="<?php echo $row['Id_Cours']; ?>">
         <?php
-        // Get the image data from the database
         $imageData = base64_encode($row['Course_Image']);
-        // Create the image source using base64 encoding
         $src = 'data:image/jpeg;base64,' . $imageData;
         ?>
         <div style="padding-bottom: 20px;"><img src="<?php echo $src; ?>" alt="Course Image"></div>
@@ -200,7 +194,6 @@ $student_id = $student_data['Id_Etudiant'];
             if (xhr.readyState === 4 && xhr.status === 200) {
               console.log(xhr.responseText);
               document.getElementById('course-' + courseId).remove();
-              // Fetch the updated progress and update the progress bar dynamically
               addProgressBar(courseId);
             }
           };
