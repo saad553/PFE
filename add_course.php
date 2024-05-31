@@ -1,44 +1,29 @@
 <?php
-include("db_connect.php");
+include "db_connect.php"; // Including the database connection file
 
-if (!isset($_SESSION['user_name'])) {
-    header("Location: index.php");
-    exit;
+if (isset($_POST['course_id']) && isset($_POST['student_id'])) {
+    $course_id = $_POST['course_id'];
+    $student_id = $_POST['student_id'];
+
+    // Check if the progress already exists
+    $check_query = "SELECT progress FROM course_progress WHERE Id_Cours = '$course_id' AND Id_Etudiant = '$student_id'";
+    $check_result = $conn->query($check_query);
+
+    if ($check_result->num_rows > 0) {
+        // Progress exists, update it
+        $sql = "UPDATE course_progress SET progress = progress + 1 WHERE Id_Cours = '$course_id' AND Id_Etudiant = '$student_id'";
+    } else {
+        // Progress does not exist, insert new record
+        $sql = "INSERT INTO course_progress (Id_Cours, Id_Etudiant, progress) VALUES ('$course_id', '$student_id', 1)";
+    }
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Progress updated successfully";
+    } else {
+        error_log("Error updating progress: " . $conn->error);
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+} else {
+    echo "Invalid request";
 }
-
-$courseTitle = $_POST['course-title'];
-$lessonCount = $_POST['lesson-count'];
-$courseImage = file_get_contents($_FILES['course-image']['tmp_name']);
-$user_name = $_SESSION['user_name'];
-
-// Fetch the Id_Enseignant for the current user
-$query = "SELECT Id_Enseignant FROM enseignant WHERE Nom = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param('s', $user_name);
-$stmt->execute();
-$result = $stmt->get_result();
-$row = $result->fetch_assoc();
-$id_enseignant = $row['Id_Enseignant'];
-
-// Insert the new course into the cours table
-$query = "INSERT INTO cours (Titre_cours, Id_Enseignant, Course_Image) VALUES (?, ?, ?)";
-$stmt = $conn->prepare($query);
-$stmt->bind_param('sis', $courseTitle, $id_enseignant, $courseImage);
-$stmt->execute();
-$courseId = $stmt->insert_id;
-
-// Insert each lesson into the lesson table
-for ($i = 1; $i <= $lessonCount; $i++) {
-    $lessonTitle = $_POST["lesson_title_" . $i];
-    $lessonContent = $_POST["lesson_content_" . $i];
-
-    $query = "INSERT INTO lesson (Titre_lesson, file_lesson, Id_Cours) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param('ssi', $lessonTitle, $lessonContent, $courseId);
-    $stmt->execute();
-}
-
-// Redirect to the professor's course page
-header("Location: enseignant.php");
-exit;
 ?>
