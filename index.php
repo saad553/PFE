@@ -141,6 +141,7 @@ include("db_connect.php");
   
   
 </div>
+<hr>
 
 <div class="site-footer" id="site-footer">
   <div class="container">
@@ -148,7 +149,8 @@ include("db_connect.php");
       <div class="col-lg-4">
         <div class="widget">
           <h3>About</h3>
-          <p class="About-text">On EduFSO, we aim for a better learning experience.</p>
+          <p class="About-text">On EduFSO, we aim for a better learning experience. </p>
+          
         </div>
         <div class="widget">
           <h3>Connect with us</h3>

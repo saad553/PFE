@@ -65,7 +65,6 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   align-items: center;
   height: 100%; /* Reduced height of the outer container */
   background-color: rgba(255, 255, 255, 0.5); /* Reduced opacity for the outer container */
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5); /* Stylish drop shadow for the outer container */
   z-index: -1;
   background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background color */
 }
@@ -112,11 +111,12 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
 
 .form-container {
   align-items: center;
+    width: 20%;
     top: 50%;
     left: 50%;
     background-color: white;
     padding: 25px;
-    border-radius: 10px;
+    border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -191,10 +191,6 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   border: 2px solid #e9ecef;
   font-size: 16px;
   height: 45px; }
-  .form-control:active, .form-control:focus, .custom-select:active, .custom-select:focus {
-    border-color: #3369e7;
-    -webkit-box-shadow: none;
-    box-shadow: none; }
 
 .gutter-v1 {
   margin-right: -20px;
@@ -1752,6 +1748,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
 
 .list-check.primary li:before {
   color: #3369e7; }
+  
 
 .site-footer {
   padding-top: 2%;
@@ -1763,7 +1760,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   .site-footer a {
     color: #000000; }
     .site-footer a:hover {
-      color: #3369e7; }
+      color: #000000; }
+      .site-footer p {
+        color: #000000; }
   .site-footer .widget {
     margin-bottom: 30px; }
     .site-footer .widget h3 {
@@ -1776,7 +1775,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
         width: 50px;
         height: 50px;
         border-radius: 10px;
-        background: #f8f9fa;
+        background: #ffffff;
         display: inline-block;
         position: relative;
         color: black; }

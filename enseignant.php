@@ -271,7 +271,7 @@ if (!isset($_SESSION['user_name'])) {
 <div class="container">
     <nav class="site-nav">
         <div class="logo">
-            <a href="index.html"><img class="khdmi" src="Untitled design.png" alt="image-alterna"></a>
+            <a href="#"><img class="khdmi" src="./images/logo.png" alt="image-alterna"></a>
         </div>
         <div class="row align-items-center">
             <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
@@ -306,7 +306,7 @@ if (!isset($_SESSION['user_name'])) {
         </div>
     </div>
 </div>
-<div class="TextCourses">
+<div id="courses-section" class="TextCourses">
     <h1>Explorer vos Cours</h1>
     <div class="CoursesContainer">
     <?php
@@ -353,7 +353,6 @@ if ($result->num_rows > 0) {
     $stmt->bind_param('i', $id_enseignant);
     $stmt->execute();
     $result = $stmt->get_result();
-
     if ($result->num_rows > 0) {
         // Affichez les cours dans une boucle
         while ($row = $result->fetch_assoc()) {
@@ -371,13 +370,14 @@ if ($result->num_rows > 0) {
             echo             '<p class="course-parts">Parties: 8</p>'; 
             echo         '</div>';
             echo         '<div class="course-details-right-container">';
-            echo             '<a href="Course_CRUD.php" class="next-button"><img src="images/Next.png" alt="Next Arrow" class="img_next"></a>';
             echo         '</div>';
             echo     '</div>';
             echo '</div>';
         }
     } else {
-        echo 'Aucun cours trouvé pour cet enseignant.';
+        echo '<a href="Course_CRUD.php"> Creer votre premier cours!</a>';
+
+
     }
 } else {
     echo 'Aucun enseignant trouvé avec ce nom.';
@@ -392,7 +392,7 @@ $conn->close();
 
 <br>
 <br>
-<div class="statistics-section">
+<div id="enseignant-section" class="statistics-section">
     <h2>Statistiques</h2>
     <div class="bar-chart">
         <div class="bar" style="height: 60%;">60%</div>
@@ -424,6 +424,7 @@ $conn->close();
 <script src="js/jquery.waypoints.min.js"></script>
 <script src="js/jquery.fancybox.min.js"></script>
 <script src="js/custom.js"></script>
+
 
 </body>
 </html>

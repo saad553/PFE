@@ -118,8 +118,7 @@ if ($lesson_result->num_rows > 0) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="Untree.co">
-    <link rel="shortcut icon" href="../images/logo.png" sizes="64x64">
+    <link rel="shortcut icon" href="./images/logo.png" sizes="64x64">
     <meta name="description" content="" />
     <meta name="keywords" content="bootstrap, bootstrap4" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
@@ -128,7 +127,6 @@ if ($lesson_result->num_rows > 0) {
     <link rel="stylesheet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="fonts/icomoon/style.css">
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
     <link rel="stylesheet" href="css/aos.css">
     <link rel="stylesheet" href="css/style.css">
     <title><?php echo $course['Titre_cours']; ?></title>
@@ -137,7 +135,7 @@ if ($lesson_result->num_rows > 0) {
 <div class="container">
     <nav class="site-nav" style="background-color: #1c394d;">
         <div class="logo">
-            <a href="index.html"><img class="khdmi" src="../images/logo.png" alt="image-alterna"></a>
+            <a href="index.html"><img class="khdmi" src="./images/logo.png" alt="image-alterna"></a>
         </div>
         <div class="row align-items-center">
             <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
